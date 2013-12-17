@@ -7,6 +7,8 @@ requirejs.config
 
 requirejs 'should'
 
+async = requirejs 'async'
+
 describe 'server', ->
 
   describe 'repositories', ->
@@ -18,22 +20,42 @@ describe 'server', ->
 
       UserRepository = requirejs 'server/repositories/user-repository'
       userRepository = new UserRepository connectionString
-      user = null
+      users = [
+        {
+          email: 'test1@gmail.com'
+          password: 'test1'
+        }
+        {
+          email: 'test2@gmail.com'
+          password: 'test2'
+        }
+      ]
 
       beforeEach (done) ->
-        userRepository.remove null, (error) ->
+        userRepository.removeAll (error) ->
           if error then throw error
+          async.each users, (user, callback) ->
+            userRepository.insert user, callback # we cannot pass userRepository.insert as argument because it will lose context
+          , (error) ->
+            if error then throw error
+            done()
+
+      it 'should find user by email', (done) ->
+        email = users[0].email
+        userRepository.findByEmail email, (error, doc) ->
+          doc.should.have.property '_id'
+          doc._id.should.be.an.instanceof ObjectID
+          doc.should.have.property 'email'
+          doc.email.should.equal email
           done()
-        user =
-          username: 'test'
-          password: 'test'
 
       it 'should insert user', (done) ->
+        user =
+          email: 'test@gmail.com'
+          password: 'test'
         userRepository.insert user, (error) ->
           if error then throw error
-          userRepository.findOne
-            username: user.username
-          , (error, doc) ->
+          userRepository.findByEmail user.email, (error, doc) ->
             doc.should.have.property '_id'
             doc._id.should.be.an.instanceof ObjectID
             done()
