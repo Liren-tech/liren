@@ -22,17 +22,19 @@ describe 'server', ->
       userRepository = new UserRepository connectionString
       users = [
         {
-          email: 'test1@gmail.com'
-          password: 'test1'
+          email: 'email1@gmail.com'
+          password: 'password1'
+          details: 'details1'
         }
         {
-          email: 'test2@gmail.com'
-          password: 'test2'
+          email: 'email2@gmail.com'
+          password: 'password2'
+          details: 'details2'
         }
       ]
 
       beforeEach (done) ->
-        userRepository.removeAll (error) ->
+        userRepository.init (error) ->
           if error then throw error
           async.each users, (user, callback) ->
             userRepository.insert user, callback # we cannot pass userRepository.insert as argument because it will lose context
@@ -41,24 +43,51 @@ describe 'server', ->
             done()
 
       it 'should find user by email', (done) ->
-        email = users[0].email
-        userRepository.findByEmail email, (error, doc) ->
-          doc.should.have.property '_id'
-          doc._id.should.be.an.instanceof ObjectID
+        user = users[0]
+        userRepository.findByEmail user.email, (error, doc) ->
+          if error then throw error
           doc.should.have.property 'email'
-          doc.email.should.equal email
+          doc.email.should.equal user.email
+          doc.should.have.property 'details'
+          doc.details.should.equal user.details
           done()
 
       it 'should insert user', (done) ->
         user =
-          email: 'test@gmail.com'
-          password: 'test'
+          email: 'email@gmail.com'
+          password: 'password'
+          details: 'details'
         userRepository.insert user, (error) ->
           if error then throw error
           userRepository.findByEmail user.email, (error, doc) ->
+            if error then throw error
             doc.should.have.property '_id'
             doc._id.should.be.an.instanceof ObjectID
+            doc.should.have.property 'email'
+            doc.email.should.equal user.email
+            doc.should.have.property 'details'
+            doc.details.should.equal user.details
             done()
+
+      it 'should stop inserting user with an existing email', (done) ->
+        user = users[0]
+        userRepository.insert user, (error) ->
+          error.should.not.be.null
+          done()
+
+      it 'should update user', (done) ->
+        email = users[0].email
+        changedDetails = 'changed details'
+        userRepository.findByEmail email, (error, doc) ->
+          if error then throw error
+          doc.details = changedDetails
+          userRepository.update doc, (error) ->
+            if error then throw error
+            userRepository.findByEmail email, (error, doc) ->
+              if error then throw error
+              doc.should.have.property 'details'
+              doc.details.should.equal changedDetails
+              done()
 
   describe 'services', ->
 
