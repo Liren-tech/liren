@@ -1,12 +1,17 @@
 requirejs.config
   baseUrl: "/js"
   paths:
+    "backbone": "lib/backbone"
     "bootstrap": "lib/bootstrap"
     "handlebars.runtime": "lib/handlebars.runtime-v1.1.2"
     "holder": "lib/holder"
     "jquery": "lib/jquery-1.10.2"
     "templates": "templates/templates"
+    "underscore": "lib/underscore"
   shim:
+    "backbone":
+      deps: ["underscore"]
+      exports: "Backbone"
     "bootstrap":
       deps: ["jquery"]
     "handlebars.runtime":
@@ -15,17 +20,14 @@ requirejs.config
       exports: "Holder"
     "templates":
       deps: ["handlebars.runtime"]
+    "underscore":
+      exports: "_"
 
 requirejs [
-  "handlebars.runtime"
-  "holder"
+  "backbone"
   "jquery"
-  "bootstrap"
-  "templates"
-], (Handlebars, Holder, $) ->
+  "routers/index-router"
+], (Backbone, $, IndexRouter) ->
   $ ->
-    $body = $ "body"
-    $body.append Handlebars.templates["header"]()
-    $body.append Handlebars.templates["index"]()
-    $body.append Handlebars.templates["footer"]()
-    Holder.run()
+    new IndexRouter
+    Backbone.history.start()
