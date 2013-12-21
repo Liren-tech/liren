@@ -1,17 +1,16 @@
 define [
   "backbone"
   "handlebars.runtime"
-  "bootstrap"
   "templates"
 ], (Backbone, Handlebars) ->
 
-  class IndexView extends Backbone.View
+  class LoginView extends Backbone.View
 
     className: "container"
-    template: Handlebars.templates["index"]
+    template: Handlebars.templates["login"]
 
     render: ->
       @$el.html @template()
       @
 
-  IndexView
+  LoginView

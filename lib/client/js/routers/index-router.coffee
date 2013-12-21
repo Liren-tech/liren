@@ -5,7 +5,9 @@ define [
   "views/header-view"
   "views/footer-view"
   "views/index-view"
-], (Backbone, Holder, $, HeaderView, FooterView, IndexView) ->
+  "views/signup-view"
+  "views/login-view"
+], (Backbone, Holder, $, HeaderView, FooterView, IndexView, SignupView, LoginView) ->
 
   class IndexRouter extends Backbone.Router
 
@@ -28,7 +30,15 @@ define [
       Holder.run()
 
     signup: ->
+      if @contentView
+        @contentView.remove()
+      @contentView = new SignupView
+      $("[role=content]").html @contentView.render().$el
 
     login: ->
+      if @contentView
+        @contentView.remove()
+      @contentView = new LoginView
+      $("[role=content]").html @contentView.render().$el
 
   IndexRouter

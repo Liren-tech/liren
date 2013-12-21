@@ -4,7 +4,7 @@ define [
   "templates"
 ], (Backbone, Handlebars) ->
 
-  class HeaderView extends Backbone.View
+  class FooterView extends Backbone.View
 
     className: "container"
     template: Handlebars.templates["footer"]
@@ -13,4 +13,4 @@ define [
       @$el.html @template()
       @
 
-  HeaderView
+  FooterView
