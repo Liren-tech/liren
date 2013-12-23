@@ -15,6 +15,7 @@ define [
     app.use express.static './lib/client'
 
     requirejs('server/routers/base-router').route app
+    requirejs('server/routers/signup-router').route app
 
     app.listen 10080
 

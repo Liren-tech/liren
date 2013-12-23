@@ -7,6 +7,7 @@ requirejs.config
 
 requirejs 'should'
 
+assert = requirejs 'assert'
 async = requirejs 'async'
 
 describe 'server repositories', ->
@@ -42,13 +43,17 @@ describe 'server repositories', ->
 
     it 'should find user by email', (done) ->
       user = users[0]
+      wrongEmail = 'wrong-email@gmail.com'
       userRepository.findByEmail user.email, (error, doc) ->
         if error then throw error
         doc.should.have.property 'email'
         doc.email.should.equal user.email
         doc.should.have.property 'details'
         doc.details.should.equal user.details
-        done()
+        userRepository.findByEmail wrongEmail, (error, doc) ->
+          if error then throw error
+          assert.equal null, doc
+          done()
 
     it 'should insert user', (done) ->
       user =
