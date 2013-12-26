@@ -9,8 +9,14 @@ define [
     className: "container"
     template: Handlebars.templates["signup"]
 
+    events:
+      "submit form": "onFormSubmit"
+
     render: ->
       @$el.html @template()
       @
+
+    onFormSubmit: ->
+      # TODO
 
   SignupView
