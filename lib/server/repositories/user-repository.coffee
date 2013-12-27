@@ -33,6 +33,17 @@ define [
             db.close()
             if callback and 'function' is typeof callback then callback error
 
+    findById: (id, callback) ->
+      @collection (error, db, collection) ->
+        if error
+          if callback and 'function' is typeof callback then callback error
+          return
+        collection.findOne
+          _id: id
+        , (error, doc) ->
+          db.close()
+          if callback and 'function' is typeof callback then callback error, doc
+
     findByEmail: (email, callback) ->
       @collection (error, db, collection) ->
         if error

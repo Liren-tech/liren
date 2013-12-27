@@ -10,7 +10,8 @@
   "author": "liren",
   "license": "BSD",
   "devDependencies": {
-    "should": "~2.1.1"
+    "should": "~2.1.1",
+    "mocha": "~1.16.2"
   },
   "dependencies": {
     "async": "~0.2.9",

@@ -41,6 +41,20 @@ describe 'server repositories', ->
           if error then throw error
           done()
 
+    it 'should find user by id', (done) ->
+      user = users[0]
+      wrongId = new ObjectID
+      userRepository.findById user._id, (error, doc) ->
+        if error then throw error
+        doc.should.have.property 'email'
+        doc.email.should.equal user.email
+        doc.should.have.property 'details'
+        doc.details.should.equal user.details
+        userRepository.findById wrongId, (error, doc) ->
+          if error then throw error
+          assert.equal null, doc
+          done()
+
     it 'should find user by email', (done) ->
       user = users[0]
       wrongEmail = 'wrong-email@gmail.com'
