@@ -13,6 +13,7 @@ define [
     app.engine 'hbs', consolidate.handlebars
 
     app.use express.static './lib/client'
+    app.use express.static './lib/common'
     app.use express.cookieParser()
 
     requirejs('server/routers/base-router').route app

@@ -13,7 +13,7 @@ describe 'common serviecs', ->
 
   describe 'input check service', ->
 
-    inputCheckService = requirejs 'common/services/input-check-service'
+    inputCheckService = requirejs 'common/js/services/input-check-service'
 
     it 'should check email', (done) ->
       rightEmail = 'test@gmail.com'

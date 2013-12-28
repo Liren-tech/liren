@@ -1,6 +1,6 @@
 define [
   'express'
-  'common/services/input-check-service'
+  'common/js/services/input-check-service'
   'server/services/password-hash-service'
   'server/repositories/user-repository'
 ], (express, inputCheckService, passwordHashService, userRepository) ->
