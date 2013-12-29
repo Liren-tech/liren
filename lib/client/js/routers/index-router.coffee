@@ -34,6 +34,7 @@ define [
         @contentView.remove()
       @contentView = new SignupView
       $("[role=content]").html @contentView.render().$el
+      @contentView.focus()
 
     login: ->
       if @contentView

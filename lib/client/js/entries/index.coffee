@@ -1,6 +1,7 @@
 requirejs.config
   baseUrl: "/js"
   paths:
+    "async": "lib/async"
     "backbone": "lib/backbone"
     "bootstrap": "lib/bootstrap"
     "handlebars.runtime": "lib/handlebars.runtime-v1.1.2"
