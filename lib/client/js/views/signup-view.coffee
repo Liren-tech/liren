@@ -2,9 +2,10 @@ define [
   "async"
   "backbone"
   "handlebars.runtime"
+  "jquery"
   "services/input-check-service"
   "templates"
-], (async, Backbone, Handlebars, inputCheckService) ->
+], (async, Backbone, Handlebars, $, inputCheckService) ->
 
   class SignupView extends Backbone.View
 
@@ -25,19 +26,17 @@ define [
       @$("#inputEmail").focus()
 
     onInputEmailFocusOut: ->
-      console.log "email focus out"
       @_checkEmail()
 
     onInputPasswordFocusOut: ->
-      console.log "password focus out"
       @_checkPassword()
 
     onInputRepeatPasswordFocusOut: ->
-      console.log "repeat password focus out"
       @_checkRepeatPassword()
 
     onFormSubmit: ->
-      console.log "submit"
+      $summary = @$ "#summary"
+      $summary.empty()
       async.parallel [
         @_checkEmail
         @_checkPassword
@@ -47,8 +46,17 @@ define [
           async.every results, (item, callback) ->
             callback item
           , (result) ->
-#            if result
-              # TODO
+            if result
+              data =
+                email: @$("#inputEmail").val()
+                password: @$("#inputPassword").val()
+              $.ajax "signup",
+                data: data
+                type: "POST"
+                error: (jqXHR) ->
+                  $summary.html jqXHR.responseText
+                success: ->
+                  window.location = "main"
 
     _checkEmail: (callback) ->
       $inputEmail = @$ "#inputEmail"
@@ -57,6 +65,7 @@ define [
         if error or not result
           $inputEmail.parent().addClass "has-error"
           $inputEmail.siblings(".help-block").removeClass "hidden"
+          $inputEmail.focus()
           if callback and "function" is typeof callback then callback null, false
         else
           $inputEmail.parent().removeClass "has-error"
@@ -70,6 +79,7 @@ define [
         if error or not result
           $inputPassword.parent().addClass "has-error"
           $inputPassword.siblings(".help-block").removeClass "hidden"
+          $inputPassword.focus()
           if callback and "function" is typeof callback then callback null, false
         else
           $inputPassword.parent().removeClass "has-error"
@@ -83,10 +93,11 @@ define [
       if password isnt repeatPassword
         $inputRepeatPassword.parent().addClass "has-error"
         $inputRepeatPassword.siblings(".help-block").removeClass "hidden"
-        if callback and "function" is typeof callback then callback null, true
+        $inputRepeatPassword.focus()
+        if callback and "function" is typeof callback then callback null, false
       else
         $inputRepeatPassword.parent().removeClass "has-error"
         $inputRepeatPassword.siblings(".help-block").addClass "hidden"
-        if callback and "function" is typeof callback then callback null, false
+        if callback and "function" is typeof callback then callback null, true
 
   SignupView

@@ -2,7 +2,7 @@ define [
   'mongodb'
   'underscore'
   'server/repositories/user-repository'
-] (MongoDB, _, UserRepository) ->
+], (MongoDB, _, UserRepository) ->
 
   ObjectID = MongoDB.ObjectID
   userRepository = new UserRepository
@@ -16,9 +16,10 @@ define [
 
   auth = (opts) ->
 
+    opts = {} if not opts
     opts = _.defaults opts, defaultOpts
 
-    (req, res, next) ->
+    func = (req, res, next) ->
       id = req.cookies[opts.key]
       if not id
         opts.failAction req, res, next
@@ -30,5 +31,7 @@ define [
           return
         req.user = doc
         opts.successAction req, res, next
+
+    func
 
   auth
