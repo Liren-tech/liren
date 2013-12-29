@@ -1,5 +1,5 @@
 define [
-  "async"
+  "../../../../."
   "backbone"
   "handlebars.runtime"
   "jquery"

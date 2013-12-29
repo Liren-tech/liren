@@ -2,11 +2,11 @@ define [
   "backbone"
   "holder"
   "jquery"
-  "views/header-view"
-  "views/footer-view"
-  "views/index-view"
-  "views/signup-view"
-  "views/login-view"
+  "views/index/header-view"
+  "views/index/footer-view"
+  "views/index/index-view"
+  "views/index/signup-view"
+  "views/index/login-view"
 ], (Backbone, Holder, $, HeaderView, FooterView, IndexView, SignupView, LoginView) ->
 
   class IndexRouter extends Backbone.Router

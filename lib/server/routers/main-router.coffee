@@ -8,7 +8,7 @@ define [
       failAction: (req, res) ->
         res.redirect '/'
     ), (req, res) ->
-      res.send 200
+      res.render "main"
 
   {
     route: route
