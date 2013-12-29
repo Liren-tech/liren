@@ -41,5 +41,6 @@ define [
         @contentView.remove()
       @contentView = new LoginView
       $("[role=content]").html @contentView.render().$el
+      @contentView.focus()
 
   IndexRouter
