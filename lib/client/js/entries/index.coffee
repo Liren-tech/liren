@@ -7,7 +7,7 @@ requirejs.config
     "handlebars.runtime": "lib/handlebars.runtime-v1.1.2"
     "holder": "lib/holder"
     "jquery": "lib/jquery-1.10.2"
-    "templates": "templates/templates"
+    "templates": "templates/index/templates"
     "underscore": "lib/underscore"
   shim:
     "backbone":
