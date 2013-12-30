@@ -62,7 +62,7 @@ findByNick: (nick, callback) ->
           if callback and 'function' is typeof callback then callback error
           return
         collection.findOne
-          email: email
+          nick:nick
         , (error, doc) ->
           db.close()
           if callback and 'function' is typeof callback then callback error, doc
