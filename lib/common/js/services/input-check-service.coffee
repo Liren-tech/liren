@@ -10,16 +10,7 @@ define ->
     reg = /^([a-zA-Z0-9]){8,30}$/
     callback null, reg.test password
 
-  
-  
-   # Nickname should at least have 3 charactors and include letters and numbers.
-  checkNick = (nick, callback) ->
-    # TODO: improve the strength of password
-    reg = /^([a-zA-Z0-9]){3,30}$/
-    callback null, reg.test nick
-    
-    {
+  {
     checkEmail: checkEmail
     checkPassword: checkPassword
-    checkNick: checkNick
-   }
+  }
