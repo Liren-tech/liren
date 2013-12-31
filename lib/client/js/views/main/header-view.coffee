@@ -8,8 +8,12 @@ define [
 
     template: Handlebars.templates["header"]
 
+    initialize: (opts) ->
+      @_user = opts.user
+      @listenTo @_user, "change", @render
+
     render: ->
-      @$el.html @template()
+      @$el.html @template @_user.toJSON()
       @
 
   HeaderView
