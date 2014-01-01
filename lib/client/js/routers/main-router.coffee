@@ -27,6 +27,8 @@ define [
       $("[role=right-side-bar]").html "right side bar"
 
     logout: ->
-      # TODO: logout
+      $.ajax "logout",
+        complete: ->
+          window.location = "/"
 
   MainRouter
