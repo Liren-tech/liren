@@ -15,6 +15,69 @@ describe 'server repositories', ->
   ObjectID = requirejs('mongodb').ObjectID
   connectionString = 'mongodb://localhost:27017/liren-test'
 
+  describe 'base repository', ->
+
+    BaseRepository = requirejs 'server/repositories/base-repository'
+    baseRepository = new BaseRepository connectionString, 'test'
+    docs = [
+      {
+        name: 'doc1'
+      }
+      {
+        name: 'doc2'
+      }
+    ]
+
+    beforeEach (done) ->
+      baseRepository.init (error) ->
+        if error then throw error
+        async.each docs, (doc, callback) ->
+          baseRepository.insert doc, callback # we cannot pass baseRepository.insert as argument because it will lose context
+        , (error) ->
+          if error then throw error
+          done()
+
+    it 'should find doc by id', (done) ->
+      doc = docs[0]
+      wrongId = new ObjectID
+      baseRepository.findById doc._id, (error, result) ->
+        if error then throw error
+        result.should.have.property 'name'
+        result.name.should.equal doc.name
+        baseRepository.findById wrongId, (error, result) ->
+          if error then throw error
+          assert.equal null, result
+          done()
+
+    it 'should insert doc', (done) ->
+      doc =
+        name: 'test doc'
+      baseRepository.insert doc, (error) ->
+        if error then throw error
+        doc.should.have.property '_id'
+        doc._id.should.be.an.instanceof ObjectID
+        baseRepository.findById doc._id, (error, result) ->
+          if error then throw error
+          result.should.have.property 'name'
+          result.name.should.equal doc.name
+          done()
+
+    it 'should update doc', (done) ->
+      doc = docs[0]
+      changedName = 'changed doc'
+      baseRepository.findById doc._id, (error, result) ->
+        if error then throw error
+        result.should.have.property 'name'
+        result.name.should.equal doc.name
+        doc.name = changedName
+        baseRepository.update doc, (error) ->
+          if error then throw error
+          baseRepository.findById doc._id, (error, result) ->
+            if error then throw error
+            result.should.have.property 'name'
+            result.name.should.equal changedName
+            done()
+
   describe 'user repository', ->
 
     UserRepository = requirejs 'server/repositories/user-repository'
@@ -41,20 +104,6 @@ describe 'server repositories', ->
           if error then throw error
           done()
 
-    it 'should find user by id', (done) ->
-      user = users[0]
-      wrongId = new ObjectID
-      userRepository.findById user._id, (error, doc) ->
-        if error then throw error
-        doc.should.have.property 'email'
-        doc.email.should.equal user.email
-        doc.should.have.property 'details'
-        doc.details.should.equal user.details
-        userRepository.findById wrongId, (error, doc) ->
-          if error then throw error
-          assert.equal null, doc
-          done()
-
     it 'should find user by email', (done) ->
       user = users[0]
       wrongEmail = 'wrong-email@gmail.com'
@@ -69,39 +118,8 @@ describe 'server repositories', ->
           assert.equal null, doc
           done()
 
-    it 'should insert user', (done) ->
-      user =
-        email: 'email@gmail.com'
-        password: 'password'
-        details: 'details'
-      userRepository.insert user, (error) ->
-        if error then throw error
-        userRepository.findByEmail user.email, (error, doc) ->
-          if error then throw error
-          doc.should.have.property '_id'
-          doc._id.should.be.an.instanceof ObjectID
-          doc.should.have.property 'email'
-          doc.email.should.equal user.email
-          doc.should.have.property 'details'
-          doc.details.should.equal user.details
-          done()
-
     it 'should stop inserting user with an existing email', (done) ->
       user = users[0]
       userRepository.insert user, (error) ->
         error.should.not.be.null
         done()
-
-    it 'should update user', (done) ->
-      email = users[0].email
-      changedDetails = 'changed details'
-      userRepository.findByEmail email, (error, doc) ->
-        if error then throw error
-        doc.details = changedDetails
-        userRepository.update doc, (error) ->
-          if error then throw error
-          userRepository.findByEmail email, (error, doc) ->
-            if error then throw error
-            doc.should.have.property 'details'
-            doc.details.should.equal changedDetails
-            done()
