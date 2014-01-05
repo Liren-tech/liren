@@ -17,4 +17,19 @@ define [
             db.close()
             if callback and 'function' is typeof callback then callback error
 
+    # TODO: find books according to business logic.
+    find: (callback) ->
+      @collection (error, db, collection) ->
+        if error
+          if callback and 'function' is typeof callback then callback error
+          return
+        collection.find (error, cursor) ->
+          if error
+            if callback and 'function' is typeof callback then callback error
+            db.close()
+            return
+          cursor.toArray (error, books) ->
+            db.close()
+            if callback and 'function' is typeof callback then callback error, books
+
   BookRepository

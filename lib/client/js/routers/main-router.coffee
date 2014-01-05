@@ -25,20 +25,16 @@ define [
       $("footer").html @footerView.render().$el
 
     main: ->
-      $("[role=left-side-bar]").html "left side bar"
       if @contentView
         @contentView.remove()
       @contentView = new MainView
       $("[role=content]").html @contentView.render().$el
-      $("[role=right-side-bar]").html "right side bar"
 
     reading: ->
-      $("[role=left-side-bar]").html "left side bar"
       if @contentView
         @contentView.remove()
       @contentView = new ReadingView
       $("[role=content]").html @contentView.render().$el
-      $("[role=right-side-bar]").html "right side bar"
 
     logout: ->
       $.ajax "logout",

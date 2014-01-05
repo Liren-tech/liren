@@ -22,6 +22,7 @@ define [
     requirejs('server/routers/logout-router').route app
     requirejs('server/routers/main-router').route app
     requirejs('server/routers/user-router').route app
+    requirejs('server/routers/book-router').route app
     requirejs('server/routers/help-router').route app
 	
     app.listen 10080
