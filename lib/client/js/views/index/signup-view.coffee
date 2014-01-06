@@ -57,6 +57,7 @@ define [
                   $summary.html jqXHR.responseText
                 success: ->
                   window.location = "main"
+      false
 
     _checkEmail: (callback) ->
       $inputEmail = @$ "#inputEmail"
