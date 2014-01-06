@@ -1,18 +1,21 @@
 define [
   "backbone"
+  "holder"
   "jquery"
   "models/user"
   "views/main/header-view"
   "views/main/footer-view"
   "views/main/main-view"
   "views/main/reading-view"
-], (Backbone, $, User, HeaderView, FooterView, MainView, ReadingView) ->
+  "views/main/book-detail-view"
+], (Backbone, Holder, $, User, HeaderView, FooterView, MainView, ReadingView, BookDetailView) ->
 
   class MainRouter extends Backbone.Router
 
     routes:
       "": "main"
       "reading": "reading"
+      "books/:id": "bookDetail"
       "logout": "logout"
 
     initialize: ->
@@ -35,6 +38,15 @@ define [
         @contentView.remove()
       @contentView = new ReadingView
       $("[role=content]").html @contentView.render().$el
+      Holder.run()
+
+    bookDetail: (id) ->
+      if @contentView
+        @contentView.remove()
+      @contentView = new BookDetailView
+        id: id
+      $("[role=content]").html @contentView.render().$el
+      Holder.run()
 
     logout: ->
       $.ajax "logout",

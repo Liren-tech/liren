@@ -1,9 +1,12 @@
 define [
+  "async"
   "backbone"
   "handlebars.runtime"
+  "holder"
   "collections/books"
+  "views/main/book-summary-view"
   "templates"
-], (Backbone, Handlebars, Books) ->
+], (async, Backbone, Handlebars, Holder, Books, BookSummaryView) ->
 
   class ReadingView extends Backbone.View
 
@@ -14,10 +17,24 @@ define [
       @_books.fetch
         reset: true
       @listenTo @_books, "reset", @render
+      @_bookViews = []
 
     render: ->
-      console.log @_books
       @$el.html @template()
+      $main = @$ "[role=main]"
+      @_books.each (book) ->
+        view = new BookSummaryView
+          model: book
+          className: "col-xs-6"
+        @_bookViews.push view
+        $main.append view.render().$el
+      , @
+      Holder.run()
       @
+
+    remove: ->
+      while view = @_bookViews.shift()
+        view.remove()
+      super
 
   ReadingView
