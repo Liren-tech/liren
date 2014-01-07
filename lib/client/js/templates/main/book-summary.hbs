@@ -5,7 +5,8 @@
     <div class="media-body">
         <h4 class="media-heading"><a href="#books/{{_id}}">{{name}}</a></h4>
         <div class="media-body">
-            Introduction
+            <p>作者：{{#each authors}}{{name}} {{/each}}</p>
+            <p>简介：{{introduction}}</p>
         </div>
     </div>
 </div>
