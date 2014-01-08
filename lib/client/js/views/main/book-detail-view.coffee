@@ -1,20 +1,25 @@
 define [
   "backbone"
   "handlebars.runtime"
+  "holder"
   "models/book"
+  "bootstrap"
   "templates"
-], (Backbone, Handlebars, Book) ->
+], (Backbone, Handlebars, Holder, Book) ->
 
   class BookDetailView extends Backbone.View
 
+    template: Handlebars.templates["book-detail"]
+
     initialize: (opts) ->
-      @_id = opts.id
       @model = new Book
-        _id: @_id
+        _id: opts.bookId
       @model.fetch()
       @listenTo @model, "change", @render
 
     render: ->
-      @$el.html @model.get "name"
+      @$el.html @template @model.toJSON()
+      Holder.run()
+      @$("[role=affix]").affix()
 
   BookDetailView

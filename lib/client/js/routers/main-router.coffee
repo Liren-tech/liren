@@ -1,6 +1,5 @@
 define [
   "backbone"
-  "holder"
   "jquery"
   "models/user"
   "views/main/header-view"
@@ -8,7 +7,7 @@ define [
   "views/main/main-view"
   "views/main/reading-view"
   "views/main/book-detail-view"
-], (Backbone, Holder, $, User, HeaderView, FooterView, MainView, ReadingView, BookDetailView) ->
+], (Backbone, $, User, HeaderView, FooterView, MainView, ReadingView, BookDetailView) ->
 
   class MainRouter extends Backbone.Router
 
@@ -47,7 +46,7 @@ define [
       if @contentView
         @contentView.remove()
       @contentView = new BookDetailView
-        id: id
+        bookId: id
       $("[role=content]").html @contentView.$el
       @contentView.render()
 
