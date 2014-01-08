@@ -11,6 +11,5 @@ define [
 
     render: ->
       @$el.html @template()
-      @
 
   HeaderView

@@ -1,8 +1,9 @@
 define [
   "backbone"
   "handlebars.runtime"
+  "holder"
   "templates"
-], (Backbone, Handlebars) ->
+], (Backbone, Handlebars, Holder) ->
 
   class BookSummaryView extends Backbone.View
 
@@ -10,6 +11,6 @@ define [
 
     render: ->
       @$el.html @template @model.toJSON()
-      @
+      Holder.run()
 
   BookSummaryView

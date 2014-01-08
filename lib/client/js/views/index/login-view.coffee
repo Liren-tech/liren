@@ -19,10 +19,7 @@ define [
 
     render: ->
       @$el.html @template()
-      @
-
-    focus: ->
-      @$("#inpuEmail").focus()
+      @$("#inputEmail").focus()
 
     onInputEmailFocusOut: ->
       @_checkEmail()

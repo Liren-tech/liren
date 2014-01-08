@@ -8,6 +8,5 @@ define [
 
     render: ->
       @$el.html "Main view."
-      @
 
   MainView

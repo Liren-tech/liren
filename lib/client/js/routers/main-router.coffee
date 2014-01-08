@@ -23,30 +23,33 @@ define [
       @_user.fetch()
       @headerView = new HeaderView
         user: @_user
-      $("header").html @headerView.render().$el
+      $("header").html @headerView.$el
+      @headerView.render()
       @footerView = new FooterView
-      $("footer").html @footerView.render().$el
+      $("footer").html @footerView.$el
+      @footerView.render()
 
     main: ->
       if @contentView
         @contentView.remove()
       @contentView = new MainView
-      $("[role=content]").html @contentView.render().$el
+      $("[role=content]").html @contentView.$el
+      @contentView.render()
 
     reading: ->
       if @contentView
         @contentView.remove()
       @contentView = new ReadingView
-      $("[role=content]").html @contentView.render().$el
-      Holder.run()
+      $("[role=content]").html @contentView.$el
+      @contentView.render()
 
     bookDetail: (id) ->
       if @contentView
         @contentView.remove()
       @contentView = new BookDetailView
         id: id
-      $("[role=content]").html @contentView.render().$el
-      Holder.run()
+      $("[role=content]").html @contentView.$el
+      @contentView.render()
 
     logout: ->
       $.ajax "logout",

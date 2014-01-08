@@ -1,9 +1,10 @@
 define [
   "backbone"
   "handlebars.runtime"
+  "holder"
   "bootstrap"
   "templates"
-], (Backbone, Handlebars) ->
+], (Backbone, Handlebars, Holder) ->
 
   class IndexView extends Backbone.View
 
@@ -12,6 +13,6 @@ define [
 
     render: ->
       @$el.html @template()
-      @
+      Holder.run()
 
   IndexView

@@ -16,6 +16,5 @@ define [
 
     render: ->
       @$el.html @model.get "name"
-      @
 
   BookDetailView

@@ -14,6 +14,5 @@ define [
 
     render: ->
       @$el.html @template @_user.toJSON()
-      @
 
   HeaderView

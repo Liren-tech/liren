@@ -27,10 +27,9 @@ define [
           model: book
           className: "col-xs-6"
         @_bookViews.push view
-        $main.append view.render().$el
+        $main.append view.$el
+        view.render()
       , @
-      Holder.run()
-      @
 
     remove: ->
       while view = @_bookViews.shift()

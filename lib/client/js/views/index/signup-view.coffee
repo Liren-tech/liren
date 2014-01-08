@@ -20,9 +20,6 @@ define [
 
     render: ->
       @$el.html @template()
-      @
-
-    focus: ->
       @$("#inputEmail").focus()
 
     onInputEmailFocusOut: ->
