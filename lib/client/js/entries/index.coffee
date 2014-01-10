@@ -28,7 +28,22 @@ requirejs [
   "backbone"
   "jquery"
   "routers/index-router"
-], (Backbone, $, IndexRouter) ->
+  "views/index/header-view"
+  "views/index/footer-view"
+], (Backbone, $, IndexRouter, HeaderView, FooterView) ->
   $ ->
+
+    headerView = new HeaderView
+    $("header").html headerView.$el
+    headerView.render()
+
+    footerView = new FooterView
+    $("footer").html footerView.$el
+    footerView.render()
+
+    contentView = null
+
     new IndexRouter
+      contentView: contentView
+
     Backbone.history.start()

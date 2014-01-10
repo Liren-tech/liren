@@ -7,14 +7,11 @@ define [
   "templates"
 ], (Backbone, Handlebars, Holder, Book) ->
 
-  class BookDetailView extends Backbone.View
+  class BookInfoView extends Backbone.View
 
-    template: Handlebars.templates["book-detail"]
+    template: Handlebars.templates["book-info"]
 
-    initialize: (opts) ->
-      @model = new Book
-        _id: opts.bookId
-      @model.fetch()
+    initialize: ->
       @listenTo @model, "change", @render
 
     render: ->
@@ -22,4 +19,4 @@ define [
       Holder.run()
       @$("[role=affix]").affix()
 
-  BookDetailView
+  BookInfoView

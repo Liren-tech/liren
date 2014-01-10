@@ -15,13 +15,8 @@ define [
       "signup": "signup"
       "login": "login"
 
-    initialize: ->
-      @headerView = new HeaderView
-      $("header").html @headerView.$el
-      @headerView.render()
-      @footerView = new FooterView
-      $("footer").html @footerView.$el
-      @footerView.render()
+    initialize: (opts) ->
+      @contentView = opts.contentView
 
     main: ->
       if @contentView
