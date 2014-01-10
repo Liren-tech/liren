@@ -5,12 +5,12 @@ define [
   "templates"
 ], (Backbone, Handlebars, Holder) ->
 
-  class BookSummaryView extends Backbone.View
+  class BookListItemView extends Backbone.View
 
-    template: Handlebars.templates["book-summary"]
+    template: Handlebars.templates["book-list-item"]
 
     render: ->
       @$el.html @template @model.toJSON()
       Holder.run()
 
-  BookSummaryView
+  BookListItemView

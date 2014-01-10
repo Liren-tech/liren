@@ -4,9 +4,9 @@ define [
   "handlebars.runtime"
   "holder"
   "collections/books"
-  "views/main/book-summary-view"
+  "views/main/book-list-item-view"
   "templates"
-], (async, Backbone, Handlebars, Holder, Books, BookSummaryView) ->
+], (async, Backbone, Handlebars, Holder, Books, BookListItemView) ->
 
   class ReadingView extends Backbone.View
 
@@ -23,7 +23,7 @@ define [
       @$el.html @template()
       $main = @$ "[role=main]"
       @_books.each (book) ->
-        view = new BookSummaryView
+        view = new BookListItemView
           model: book
           className: "col-xs-6"
         @_bookViews.push view
