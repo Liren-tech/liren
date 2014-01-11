@@ -1,31 +1,26 @@
 define [
   "backbone"
   "jquery"
+  "common/global"
   "models/book"
-  "views/main/book-info-view"
-], (Backbone, $, Book, BookInfoView) ->
+  "views/main/book-view"
+], (Backbone, $, global, Book, BookView) ->
 
   class BookRouter extends Backbone.Router
 
     routes:
-      "books/:id": "bookDetail"
+      "books/:id": "info"
 
-    initialize: (opts) ->
-      @contentView = opts.contentView
-
-    bookDetail: (id) ->
-      @_fetchBook id
-      if @contentView
-        @contentView.remove()
-      @contentView = new BookInfoView
-        model: @_book
-      $("[role=content]").html @contentView.$el
-      @contentView.render()
-
-    _fetchBook: (id) ->
+    info: (id) ->
       if !@_book or @_book.id isnt id
         @_book = new Book
           _id: id
         @_book.fetch()
+      if view = global.contentView
+        view.remove()
+      global.contentView = view = new BookView
+        model: @_book
+      $("#content").html view.$el
+      view.render()
 
   BookRouter

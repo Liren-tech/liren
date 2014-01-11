@@ -1,17 +1,17 @@
 define [
-  "backbone"
+  "views/base-view"
   "handlebars.runtime"
   "holder"
-  "models/book"
   "bootstrap"
   "templates"
-], (Backbone, Handlebars, Holder, Book) ->
+], (BaseView, Handlebars, Holder) ->
 
-  class BookInfoView extends Backbone.View
+  class BookView extends BaseView
 
-    template: Handlebars.templates["book-info"]
+    template: Handlebars.templates["book"]
 
     initialize: ->
+      super
       @listenTo @model, "change", @render
 
     render: ->
@@ -19,4 +19,4 @@ define [
       Holder.run()
       @$("[role=affix]").affix()
 
-  BookInfoView
+  BookView

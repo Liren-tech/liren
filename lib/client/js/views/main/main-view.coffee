@@ -1,10 +1,10 @@
 define [
-  "backbone"
+  "views/base-view"
   "handlebars.runtime"
   "templates"
-], (Backbone, Handlebars) ->
+], (BaseView, Handlebars) ->
 
-  class MainView extends Backbone.View
+  class MainView extends BaseView
 
     render: ->
       @$el.html "Main view."

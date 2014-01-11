@@ -1,12 +1,11 @@
 define [
   "backbone"
   "jquery"
-  "views/index/header-view"
-  "views/index/footer-view"
+  "common/global"
   "views/index/index-view"
   "views/index/signup-view"
   "views/index/login-view"
-], (Backbone, $, HeaderView, FooterView, IndexView, SignupView, LoginView) ->
+], (Backbone, $, global, IndexView, SignupView, LoginView) ->
 
   class IndexRouter extends Backbone.Router
 
@@ -15,28 +14,20 @@ define [
       "signup": "signup"
       "login": "login"
 
-    initialize: (opts) ->
-      @contentView = opts.contentView
-
     main: ->
-      if @contentView
-        @contentView.remove()
-      @contentView = new IndexView
-      $("[role=content]").html @contentView.$el
-      @contentView.render()
+      @_renderContent new IndexView
 
     signup: ->
-      if @contentView
-        @contentView.remove()
-      @contentView = new SignupView
-      $("[role=content]").html @contentView.$el
-      @contentView.render()
+      @_renderContent new SignupView
 
     login: ->
-      if @contentView
-        @contentView.remove()
-      @contentView = new LoginView
-      $("[role=content]").html @contentView.$el
-      @contentView.render()
+      @_renderContent new LoginView
+
+    _renderContent: (view) ->
+      if global.contentView
+        global.contentView.remove()
+      global.contentView = view
+      $("#content").html view.$el
+      view.render()
 
   IndexRouter

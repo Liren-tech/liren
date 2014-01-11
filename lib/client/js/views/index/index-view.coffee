@@ -1,12 +1,12 @@
 define [
-  "backbone"
+  "views/base-view"
   "handlebars.runtime"
   "holder"
   "bootstrap"
   "templates"
-], (Backbone, Handlebars, Holder) ->
+], (BaseView, Handlebars, Holder) ->
 
-  class IndexView extends Backbone.View
+  class IndexView extends BaseView
 
     className: "container"
     template: Handlebars.templates["index"]

@@ -1,9 +1,10 @@
 define [
   "backbone"
   "jquery"
+  "common/global"
   "views/main/main-view"
   "views/main/reading-view"
-], (Backbone, $, MainView, ReadingView) ->
+], (Backbone, $, global, MainView, ReadingView) ->
 
   class MainRouter extends Backbone.Router
 
@@ -12,26 +13,22 @@ define [
       "reading": "reading"
       "logout": "logout"
 
-    initialize: (opts) ->
-      @contentView = opts.contentView
-
     main: ->
-      if @contentView
-        @contentView.remove()
-      @contentView = new MainView
-      $("[role=content]").html @contentView.$el
-      @contentView.render()
+      @_renderContent new MainView
 
     reading: ->
-      if @contentView
-        @contentView.remove()
-      @contentView = new ReadingView
-      $("[role=content]").html @contentView.$el
-      @contentView.render()
+      @_renderContent new ReadingView
 
     logout: ->
       $.ajax "logout",
         complete: ->
           window.location = "/"
+
+    _renderContent: (view) ->
+      if global.contentView
+        global.contentView.remove()
+      global.contentView = view
+      $("#content").html view.$el
+      view.render()
 
   MainRouter

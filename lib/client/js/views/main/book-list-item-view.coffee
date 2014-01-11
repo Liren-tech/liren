@@ -1,11 +1,11 @@
 define [
-  "backbone"
+  "views/base-view"
   "handlebars.runtime"
   "holder"
   "templates"
-], (Backbone, Handlebars, Holder) ->
+], (BaseView, Handlebars, Holder) ->
 
-  class BookListItemView extends Backbone.View
+  class BookListItemView extends BaseView
 
     template: Handlebars.templates["book-list-item"]
 

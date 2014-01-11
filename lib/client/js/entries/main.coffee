@@ -27,32 +27,34 @@ requirejs.config
 requirejs [
   "backbone"
   "jquery"
+  "common/global"
   "models/user"
   "routers/main-router"
   "routers/book-router"
   "views/main/header-view"
   "views/main/footer-view"
-], (Backbone, $, User, MainRouter, BookRouter, HeaderView, FooterView) ->
+], (Backbone, $, global, User, MainRouter, BookRouter, HeaderView, FooterView) ->
 
   $ ->
 
     user = new User
     user.fetch()
+    global.user = user
 
     headerView = new HeaderView
       user: user
     $("header").html headerView.$el
     headerView.render()
+    global.headerView = headerView
 
     footerView = new FooterView
     $("footer").html footerView.$el
     footerView.render()
+    global.footerView = footerView
 
-    contentView = null
+    global.contentView = null
 
     new MainRouter
-      contentView: contentView
     new BookRouter
-      contentView: contentView
 
     Backbone.history.start()

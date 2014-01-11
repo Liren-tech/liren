@@ -1,10 +1,10 @@
 define [
-  "backbone"
+  "views/base-view"
   "handlebars.runtime"
   "templates"
-], (Backbone, Handlebars) ->
+], (BaseView, Handlebars) ->
 
-  class FooterView extends Backbone.View
+  class FooterView extends BaseView
 
     className: "container"
     template: Handlebars.templates["footer"]

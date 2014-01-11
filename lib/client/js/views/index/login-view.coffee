@@ -1,13 +1,13 @@
 define [
+  "views/base-view"
   "async"
-  "backbone"
   "handlebars.runtime"
   "jquery"
   "services/input-check-service"
   "templates"
-], (async, Backbone, Handlebars, $, inputCheckService) ->
+], (BaseView, async, Handlebars, $, inputCheckService) ->
 
-  class LoginView extends Backbone.View
+  class LoginView extends BaseView
 
     className: "container"
     template: Handlebars.templates["login"]

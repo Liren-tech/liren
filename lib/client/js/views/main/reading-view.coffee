@@ -1,39 +1,34 @@
 define [
+  "views/base-view"
   "async"
-  "backbone"
   "handlebars.runtime"
   "holder"
   "collections/books"
   "views/main/book-list-item-view"
   "templates"
-], (async, Backbone, Handlebars, Holder, Books, BookListItemView) ->
+], (BaseView, async, Handlebars, Holder, Books, BookListItemView) ->
 
-  class ReadingView extends Backbone.View
+  class ReadingView extends BaseView
 
     template: Handlebars.templates["reading"]
 
     initialize: ->
+      super
       @_books = new Books
       @_books.fetch
         reset: true
       @listenTo @_books, "reset", @render
-      @_bookViews = []
 
     render: ->
       @$el.html @template()
-      $main = @$ "[role=main]"
+      $main = @$ "#main"
       @_books.each (book) ->
         view = new BookListItemView
           model: book
           className: "col-xs-6"
-        @_bookViews.push view
+        @_views.push view
         $main.append view.$el
         view.render()
       , @
-
-    remove: ->
-      while view = @_bookViews.shift()
-        view.remove()
-      super
 
   ReadingView

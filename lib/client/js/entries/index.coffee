@@ -27,23 +27,26 @@ requirejs.config
 requirejs [
   "backbone"
   "jquery"
+  "common/global"
   "routers/index-router"
   "views/index/header-view"
   "views/index/footer-view"
-], (Backbone, $, IndexRouter, HeaderView, FooterView) ->
+], (Backbone, $, global, IndexRouter, HeaderView, FooterView) ->
+
   $ ->
 
     headerView = new HeaderView
     $("header").html headerView.$el
     headerView.render()
+    global.headerView = headerView
 
     footerView = new FooterView
     $("footer").html footerView.$el
     footerView.render()
+    global.footerView = footerView
 
-    contentView = null
+    global.contentView = null
 
     new IndexRouter
-      contentView: contentView
 
     Backbone.history.start()
