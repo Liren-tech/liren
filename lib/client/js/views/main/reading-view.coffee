@@ -26,7 +26,7 @@ define [
         view = new BookListItemView
           model: book
           className: "col-xs-6"
-        @_views.push view
+        @_registerView view
         $main.append view.$el
         view.render()
       , @
