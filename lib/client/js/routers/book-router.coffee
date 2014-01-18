@@ -12,14 +12,13 @@ define [
       "books/:id": "info"
 
     info: (id) ->
-      if !@_book or @_book.id isnt id
-        @_book = new Book
-          _id: id
-        @_book.fetch()
+      @book = new Book
+        _id: id
+      @book.fetch()
       if view = global.contentView
         view.remove()
       global.contentView = view = new BookView
-        model: @_book
+        model: @book
       $("#content").html view.$el
       view.render()
 
