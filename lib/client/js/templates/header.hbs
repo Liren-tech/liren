@@ -1,7 +1,7 @@
 <div class="navbar-header">
     <a class="navbar-brand" href="#">Logo & Title</a>
 </div>
-<div class="collapse navbar-collapse" role="navigation">
+<div class="collapse navbar-collapse">
     <ul class="nav navbar-nav">
         <li><a href="#">主页</a></li>
         <li><a href="#reading">读书</a></li>
@@ -11,8 +11,8 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
         {{#if user}}
-            <li><a href="#" role="portrait"><img src="{{portraitUrl}}"></a></li>
-            <li><a href="#">{{email}}</a></li>
+            <li><a href="#"><img src="{{user.portraitUrl}}" height="20" width="20"></a></li>
+            <li><a href="#">{{user.email}}</a></li>
             <li><a href="#logout">退出</a></li>
         {{else}}
             <li><a href="#signup">注册</a></li>

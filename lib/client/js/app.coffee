@@ -1,12 +1,16 @@
 define [
   "backbone"
+  "models/user"
   "routers/index-router"
   "views/layout-view"
-], (Backbone, IndexRouter, LayoutView) ->
+], (Backbone, User, IndexRouter, LayoutView) ->
 
   App =
 
     initialize: ->
+
+      @user = new User
+      @user.fetch()
 
       @layout = new LayoutView
       @layout.render()
@@ -15,5 +19,13 @@ define [
         layout: @layout
 
       Backbone.history.start()
+
+    login: (user) ->
+      @user.set user
+      window.location = "#"
+
+    logout: ->
+      @user.reset()
+      window.location = "#"
 
   App

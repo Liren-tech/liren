@@ -1,9 +1,9 @@
 define [
   "backbone"
   "views/index-view"
-#  "views/index/signup-view"
-#  "views/index/login-view"
-], (Backbone, IndexView) ->
+  "views/signup-view"
+  "views/login-view"
+], (Backbone, IndexView, SignupView, LoginView) ->
 
   class IndexRouter extends Backbone.Router
 
@@ -12,23 +12,22 @@ define [
 
     routes:
       "": "index"
-#      "signup": "signup"
-#      "login": "login"
+      "signup": "signup"
+      "login": "login"
+      "logout": "logout"
 
     index: ->
       @layout.renderContent new IndexView
 
-#    signup: ->
-#      @_renderContent new SignupView
-#
-#    login: ->
-#      @_renderContent new LoginView
+    signup: ->
+      @layout.renderContent new SignupView
 
-#    _renderContent: (view) ->
-#      if global.contentView
-#        global.contentView.remove()
-#      global.contentView = view
-#      $("#content").html view.$el
-#      view.render()
+    login: ->
+      @layout.renderContent new LoginView
+
+    logout: ->
+      $.ajax "logout",
+        complete: ->
+          require("app").logout()
 
   IndexRouter

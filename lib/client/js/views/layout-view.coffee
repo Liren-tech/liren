@@ -24,6 +24,9 @@ define [
       @$("footer").html @footer.$el
       @footer.render()
 
+    renderHeader: ->
+      @header.render()
+
     renderContent: (contentView) ->
       if @content
         @content.remove()

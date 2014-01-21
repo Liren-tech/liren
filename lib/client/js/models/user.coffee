@@ -7,10 +7,14 @@ define [
     idAttribute: "_id"
 
     defaults: ->
-      email: ""
       portraitUrl: "images/default-portrait.jpg"
 
     url: ->
       "/user"
+
+    reset: ->
+      @clear
+        silent: true
+      @set @defaults()
 
   User

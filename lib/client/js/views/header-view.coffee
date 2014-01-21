@@ -11,7 +11,13 @@ define [
 
     template: Handlebars.templates["header"]
 
+    initialize: ->
+      user = require("app").user
+      @listenTo user, "change", @render
+
     render: ->
-      @$el.html @template()
+      user = require("app").user
+      @$el.html @template
+        user: if user.id then user.toJSON()
 
   HeaderView
