@@ -1,0 +1,24 @@
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">Logo & Title</a>
+    </div>
+    <div class="collapse navbar-collapse" role="navigation">
+        <ul class="nav navbar-nav">
+            <li><a href="#">主页</a></li>
+            <li><a href="#reading">读书</a></li>
+            <li><a href="#">思考</a></li>
+            <li><a href="#">行动</a></li>
+            <li><a href="#">学堂</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            {{#if user}}
+                <li><a href="#" role="portrait"><img src="{{portraitUrl}}"></a></li>
+                <li><a href="#">{{email}}</a></li>
+                <li><a href="#logout">退出</a></li>
+            {{else}}
+                <li><a href="#signup">注册</a></li>
+                <li><a href="#login">登录</a></li>
+            {{/if}}
+        </ul>
+    </div>
+</nav>
