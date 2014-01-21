@@ -1,14 +1,13 @@
 define [
   'mongodb'
-  'server/middlewares/auth-middleware'
   'server/repositories/book-repository'
-], (MongoDb, auth, BookRepository) ->
+], (MongoDb, BookRepository) ->
 
   ObjectID = MongoDb.ObjectID
 
   route = (app) ->
 
-    app.get '/books', auth(), (req, res) ->
+    app.get '/books', (req, res) ->
       bookRepository = new BookRepository
       bookRepository.find (error, books) ->
         if error or not books
@@ -16,7 +15,7 @@ define [
           return
         res.send books
 
-    app.get '/books/:id', auth(), (req, res) ->
+    app.get '/books/:id', (req, res) ->
       bookRespository = new BookRepository
       id = new ObjectID req.params.id
       bookRespository.findById id, (error, book) ->

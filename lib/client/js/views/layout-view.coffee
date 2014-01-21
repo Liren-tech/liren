@@ -9,6 +9,7 @@ define [
   class LayoutView extends Backbone.View
 
     el: "body"
+
     template: Handlebars.templates["layout"]
 
     initialize: ->
