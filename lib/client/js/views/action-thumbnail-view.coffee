@@ -2,15 +2,16 @@ define [
   "backbone"
   "handlebars"
   "holder"
+  "models/action"
   "templates"
-], (Backbone, Handlebars, Holder) ->
+], (Backbone, Handlebars, Holder, Action) ->
 
   class ActionThumbnailView extends Backbone.View
 
     template: Handlebars.templates["action-thumbnail"]
 
     render: ->
-      if @model is typeof Backbone.Model
+      if @model.constructor is Action
         context = @model.toJSON()
       else
         context = @model
