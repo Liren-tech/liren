@@ -10,8 +10,7 @@ define [
       name: ""
       authors: []
       introduction: ""
+      reviews: []
 
     urlRoot: ->
       "/books"
-
-  Book

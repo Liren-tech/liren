@@ -16,5 +16,3 @@ define [
       @clear
         silent: true
       @set @defaults()
-
-  User

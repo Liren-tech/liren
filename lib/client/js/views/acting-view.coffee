@@ -2,13 +2,12 @@ define [
   "async"
   "backbone"
   "handlebars"
-  "holder"
   "collections/actions"
   "views/action-thumbnail-view"
   "templates"
-], (async, Backbone, Handlebars, Holder, Actions, ActionThumbnailView) ->
+], (async, Backbone, Handlebars, Actions, ActionThumbnailView) ->
 
-  class ReadingView extends Backbone.View
+  class ActingView extends Backbone.View
 
     className: "container"
 
@@ -26,7 +25,6 @@ define [
     render: ->
       @$el.html @template()
       @_renderActionList()
-      Holder.run()
 
     remove: ->
       @_removeActionList()
@@ -34,7 +32,7 @@ define [
 
     _renderActionList: ->
       @_removeActionList()
-      $actionList = @$("#action-list")
+      $actionList = @$ "#action-list"
       @actions.each (action) ->
         actionThumbnailView = new ActionThumbnailView
           model: action
@@ -48,5 +46,3 @@ define [
       while view = @actionThumbnailViews.shift()
         view.remove()
       @$("#action-list").empty()
-
-  ReadingView

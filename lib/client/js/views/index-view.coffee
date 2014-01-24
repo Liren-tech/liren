@@ -32,9 +32,9 @@ define [
 
     render: ->
       @$el.html @template()
+      Holder.run()
       @_renderBookList()
       @_renderActionList()
-      Holder.run()
 
     remove: ->
       @_removeBookList()
@@ -42,7 +42,7 @@ define [
 
     _renderBookList: ->
       @_removeBookList()
-      $bookList = @$("#book-list")
+      $bookList = @$ "#book-list"
       @books.each (book) ->
         bookThumbnailView = new BookThumbnailView
           model: book
@@ -54,7 +54,7 @@ define [
 
     _renderActionList: ->
       @_removeActionList()
-      $actionList = @$("#action-list")
+      $actionList = @$ "#action-list"
       @actions.each (action) ->
         actionThumbnailView = new ActionThumbnailView
           model: action
@@ -73,5 +73,3 @@ define [
       while view = @actionThumbnailViews.shift()
         view.remove()
       @$("#action-list").empty()
-
-  IndexView

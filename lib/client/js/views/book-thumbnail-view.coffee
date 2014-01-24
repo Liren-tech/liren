@@ -15,5 +15,3 @@ define [
         height: 180
       @$el.html @template context
       Holder.run()
-
-  BookThumbnailView

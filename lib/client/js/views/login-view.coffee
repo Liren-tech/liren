@@ -78,5 +78,3 @@ define [
           $inputPassword.parent().removeClass "has-error"
           $inputPassword.siblings(".help-block").addClass "hidden"
           if callback and "function" is typeof callback then callback null, true
-
-  LoginView

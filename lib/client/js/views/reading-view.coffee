@@ -2,11 +2,10 @@ define [
   "async"
   "backbone"
   "handlebars"
-  "holder"
   "collections/books"
   "views/book-thumbnail-view"
   "templates"
-], (async, Backbone, Handlebars, Holder, Books, BookThumbnailView) ->
+], (async, Backbone, Handlebars, Books, BookThumbnailView) ->
 
   class ReadingView extends Backbone.View
 
@@ -26,7 +25,6 @@ define [
     render: ->
       @$el.html @template()
       @_renderBookList()
-      Holder.run()
 
     remove: ->
       @_removeBookList()
@@ -34,7 +32,7 @@ define [
 
     _renderBookList: ->
       @_removeBookList()
-      $bookList = @$("#book-list")
+      $bookList = @$ "#book-list"
       @books.each (book) ->
         bookThumbnailView = new BookThumbnailView
           model: book
@@ -48,5 +46,3 @@ define [
       while view = @bookThumbnailViews.shift()
         view.remove()
       @$("#book-list").empty()
-
-  ReadingView

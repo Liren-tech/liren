@@ -4,11 +4,9 @@ define [
   "templates"
 ], (Backbone, Handlebars) ->
 
-  class FooterView extends Backbone.View
+  class ReviewView extends Backbone.View
 
-    className: "container"
-
-    template: Handlebars.templates["footer"]
+    template: Handlebars.templates["review"]
 
     render: ->
       @$el.html @template()

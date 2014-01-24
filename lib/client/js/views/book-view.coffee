@@ -4,9 +4,10 @@ define [
   "views/side-nav-view"
   "views/book-info-view"
   "views/book-guide-view"
+  "views/book-reviews-view"
   "bootstrap"
   "templates"
-], (Backbone, Handlebars, SideNavView, BookInfoView, BookGuideView) ->
+], (Backbone, Handlebars, SideNavView, BookInfoView, BookGuideView, BookReviewsView) ->
 
   class BookView extends Backbone.View
 
@@ -26,9 +27,9 @@ define [
           url: "#books/#{@model.id}/guide"
         }
         {
-          id: "review"
+          id: "reviews"
           text: "书评"
-          url: "#books/#{@model.id}/review"
+          url: "#books/#{@model.id}/reviews"
         }
       ]
       @leftSideView = new SideNavView
@@ -48,6 +49,9 @@ define [
         when "guide"
           @mainView = new BookGuideView
             model: @model
+        when "reviews"
+          @mainView = new BookReviewsView
+            model: @model
         else
           @mainView = new BookInfoView
             model: @model
@@ -65,6 +69,3 @@ define [
       if @mainView
         @mainView.remove()
         @$("#main").empty()
-
-
-  BookView

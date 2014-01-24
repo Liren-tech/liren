@@ -30,5 +30,3 @@ define [
       global.contentView = view
       $("#content").html view.$el
       view.render()
-
-  MainRouter

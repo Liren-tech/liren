@@ -12,5 +12,3 @@ define [
 
     urlRoot: ->
       "/actions"
-
-  Action

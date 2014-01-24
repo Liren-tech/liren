@@ -39,5 +39,3 @@ define [
       $.ajax "logout",
         complete: ->
           require("app").logout()
-
-  IndexRouter
