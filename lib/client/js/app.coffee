@@ -2,8 +2,9 @@ define [
   "backbone"
   "models/user"
   "routers/index-router"
+  "routers/book-router"
   "views/layout-view"
-], (Backbone, User, IndexRouter, LayoutView) ->
+], (Backbone, User, IndexRouter, BookRouter, LayoutView) ->
 
   App =
 
@@ -16,6 +17,8 @@ define [
       @layout.render()
 
       new IndexRouter
+        layout: @layout
+      new BookRouter
         layout: @layout
 
       Backbone.history.start()

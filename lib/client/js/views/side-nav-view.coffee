@@ -1,11 +1,11 @@
 define [
-  "views/base-view"
-  "handlebars.runtime"
+  "backbone"
+  "handlebars"
   "bootstrap"
   "templates"
-], (BaseView, Handlebars) ->
+], (Backbone, Handlebars) ->
 
-  class SideNavView extends BaseView
+  class SideNavView extends Backbone.View
 
     template: Handlebars.templates["side-nav"]
 
