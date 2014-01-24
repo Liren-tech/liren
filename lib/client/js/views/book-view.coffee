@@ -1,11 +1,12 @@
 define [
   "backbone"
   "handlebars"
-  "holder"
   "views/side-nav-view"
+  "views/book-info-view"
+  "views/book-guide-view"
   "bootstrap"
   "templates"
-], (Backbone, Handlebars, Holder, SideNavView) ->
+], (Backbone, Handlebars, SideNavView, BookInfoView, BookGuideView) ->
 
   class BookView extends Backbone.View
 
@@ -15,32 +16,55 @@ define [
     initialize: ->
       @navItems = [
         {
+          id: "info"
           text: "基本信息"
           url: "#books/#{@model.id}"
-          active: true
         }
         {
+          id: "guide"
           text: "导读"
           url: "#books/#{@model.id}/guide"
         }
         {
+          id: "review"
           text: "书评"
           url: "#books/#{@model.id}/review"
         }
       ]
       @leftSideView = new SideNavView
         items: @navItems
-      @listenTo @model, "change", @render
 
     render: ->
-      @$el.html @template @model.toJSON()
-      Holder.run()
+      @$el.html @template()
       @$("#left-side-bar").html @leftSideView.$el
-      @leftSideView.render()
+
+    route: (router) ->
+
+      @_removeMainView()
+      switch router
+        when "info"
+          @mainView = new BookInfoView
+            model: @model
+        when "guide"
+          @mainView = new BookGuideView
+            model: @model
+        else
+          @mainView = new BookInfoView
+            model: @model
+      @$("#main").html @mainView.$el
+      @mainView.render()
+
+      @leftSideView.route router
 
     remove: ->
       @leftSideView.remove()
+      @_removeMainView()
       super
+
+    _removeMainView: ->
+      if @mainView
+        @mainView.remove()
+        @$("#main").empty()
 
 
   BookView

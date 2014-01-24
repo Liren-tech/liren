@@ -2,6 +2,7 @@ define [
   "backbone"
   "models/book"
   "views/book-view"
+  "views/book-guide-view"
 ], (Backbone, Book, BookView) ->
 
   class BookRouter extends Backbone.Router
@@ -11,12 +12,24 @@ define [
 
     routes:
       "books/:id": "info"
+      "books/:id/guide": "guide"
 
     info: (id) ->
-      @book = new Book
-        _id: id
-      @book.fetch()
-      @layout.renderContent new BookView
-        model: @book
+      @_initView id
+      @layout.renderContent @view
+      @view.route "info"
+
+    guide: (id) ->
+      @_initView id
+      @layout.renderContent @view
+      @view.route "guide"
+
+    _initView: (id) ->
+      if !@view or id isnt @book.id
+        @book = new Book
+          _id: id
+        @book.fetch()
+        @view = new BookView
+          model: @book
 
   BookRouter
