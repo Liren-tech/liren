@@ -2,40 +2,28 @@ define [
   "backbone"
   "handlebars"
   "views/side-nav-view"
-  "views/book-side-view"
-  "views/book-info-view"
-  "views/book-guide-view"
-  "views/book-reviews-view"
+  "views/action-side-view"
+  "views/action-info-view"
   "templates"
-], (Backbone, Handlebars, SideNavView, BookSideView, BookInfoView, BookGuideView, BookReviewsView) ->
+], (Backbone, Handlebars, SideNavView, ActionSideView, ActionInfoView) ->
 
-  class BookView extends Backbone.View
+  class ActionView extends Backbone.View
 
     className: "container"
-    template: Handlebars.templates["book"]
+    template: Handlebars.templates["action"]
 
     initialize: ->
       @navItems = [
         {
           id: "info"
           text: "基本信息"
-          url: "#books/#{@model.id}"
-        }
-        {
-          id: "guide"
-          text: "导读"
-          url: "#books/#{@model.id}/guide"
-        }
-        {
-          id: "reviews"
-          text: "书评"
-          url: "#books/#{@model.id}/reviews"
+          url: "#actions/#{@model.id}"
         }
       ]
       @leftSideView = new SideNavView
         items: @navItems
 
-      @rightSideView = new BookSideView
+      @rightSideView = new ActionSideView
         model: @model
 
     render: ->
@@ -49,16 +37,10 @@ define [
       @_removeMainView()
       switch router
         when "info"
-          @mainView = new BookInfoView
-            model: @model
-        when "guide"
-          @mainView = new BookGuideView
-            model: @model
-        when "reviews"
-          @mainView = new BookReviewsView
+          @mainView = new ActionInfoView
             model: @model
         else
-          @mainView = new BookInfoView
+          @mainView = new ActionInfoView
             model: @model
       @$("#main").html @mainView.$el
       @mainView.render()

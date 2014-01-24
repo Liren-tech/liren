@@ -2,7 +2,6 @@ define [
   "backbone"
   "models/book"
   "views/book-view"
-  "views/book-guide-view"
 ], (Backbone, Book, BookView) ->
 
   class BookRouter extends Backbone.Router
