@@ -1,9 +1,10 @@
 define [
   "backbone"
   "views/index-view"
+  "views/reading-view"
   "views/signup-view"
   "views/login-view"
-], (Backbone, IndexView, SignupView, LoginView) ->
+], (Backbone, IndexView, ReadingView, SignupView, LoginView) ->
 
   class IndexRouter extends Backbone.Router
 
@@ -12,12 +13,16 @@ define [
 
     routes:
       "": "index"
+      "reading": "reading"
       "signup": "signup"
       "login": "login"
       "logout": "logout"
 
     index: ->
       @layout.renderContent new IndexView
+
+    reading: ->
+      @layout.renderContent new ReadingView
 
     signup: ->
       @layout.renderContent new SignupView
