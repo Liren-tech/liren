@@ -23,7 +23,7 @@ define [
       $reviewList = @$ "#review-list"
       _.each @model.get("reviews"), (review) ->
         view = new ReviewView
-          review: review
+          model: review
           className: "margin-bottom-20"
         $reviewList.append view.$el
         view.render()

@@ -31,4 +31,7 @@ define [
       @user.reset()
       window.location = "#"
 
+    defaults:
+      portraitUrl: "images/default-portrait.jpg"
+
   App

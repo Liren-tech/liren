@@ -9,4 +9,6 @@ define [
     template: Handlebars.templates["review"]
 
     render: ->
-      @$el.html @template()
+      if !@model.user.portraitUrl
+        @model.user.portraitUrl = require("app").defaults.portraitUrl
+      @$el.html @template @model
