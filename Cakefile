@@ -5,8 +5,7 @@ _ = require 'underscore'
 coffeePath = path.join 'node_modules', '.bin', 'coffee'
 handlebarsPath = path.join 'node_modules', '.bin', 'handlebars'
 libFolder = 'lib'
-templatesBaseFolder = path.join 'lib', 'client', 'js', 'templates'
-templatesFolders = ['index', 'main']
+templatesFolder = path.join 'lib', 'client', 'js', 'templates'
 testFolder = 'test'
 
 task 'build', 'build the whole project', ->
@@ -15,8 +14,6 @@ task 'build', 'build the whole project', ->
   console.log 'build lib scripts'
   exec "#{coffeePath} -c #{libFolder}"
   console.log 'build templates'
-  _.each templatesFolders, (folder) ->
-    templatesFolder = path.join templatesBaseFolder, folder
-    exec "#{handlebarsPath} #{templatesFolder} -e hbs -f #{path.join templatesFolder, 'templates.js'}"
+  exec "#{handlebarsPath} #{templatesFolder} -e hbs -f #{path.join templatesFolder, 'templates.js'}"
   console.log 'build test scripts'
   exec "#{coffeePath} -c #{testFolder}"

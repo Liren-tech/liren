@@ -1,13 +1,13 @@
 define [
-  "views/base-view"
   "async"
-  "handlebars.runtime"
+  "backbone"
+  "handlebars"
   "jquery"
   "services/input-check-service"
   "templates"
-], (BaseView, async, Handlebars, $, inputCheckService) ->
+], (async, Backbone, Handlebars, $, inputCheckService) ->
 
-  class LoginView extends BaseView
+  class LoginView extends Backbone.View
 
     className: "container"
     template: Handlebars.templates["login"]
@@ -47,8 +47,8 @@ define [
                 type: "POST"
                 error: (jqXHR) ->
                   $summary.html jqXHR.responseText
-                success: ->
-                  window.location = "main"
+                success: (user) ->
+                  require("app").login user
       false
 
     _checkEmail: (callback) ->

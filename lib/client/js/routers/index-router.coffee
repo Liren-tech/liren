@@ -1,33 +1,43 @@
 define [
   "backbone"
-  "jquery"
-  "common/global"
-  "views/index/index-view"
-  "views/index/signup-view"
-  "views/index/login-view"
-], (Backbone, $, global, IndexView, SignupView, LoginView) ->
+  "views/index-view"
+  "views/reading-view"
+  "views/acting-view"
+  "views/signup-view"
+  "views/login-view"
+], (Backbone, IndexView, ReadingView, ActingView, SignupView, LoginView) ->
 
   class IndexRouter extends Backbone.Router
 
+    initialize: (opts) ->
+      @layout = opts.layout
+
     routes:
-      "": "main"
+      "": "index"
+      "reading": "reading"
+      "acting": "acting"
       "signup": "signup"
       "login": "login"
+      "logout": "logout"
 
-    main: ->
-      @_renderContent new IndexView
+    index: ->
+      @layout.renderContent new IndexView
+
+    reading: ->
+      @layout.renderContent new ReadingView
+
+    acting: ->
+      @layout.renderContent new ActingView
 
     signup: ->
-      @_renderContent new SignupView
+      @layout.renderContent new SignupView
 
     login: ->
-      @_renderContent new LoginView
+      @layout.renderContent new LoginView
 
-    _renderContent: (view) ->
-      if global.contentView
-        global.contentView.remove()
-      global.contentView = view
-      $("#content").html view.$el
-      view.render()
+    logout: ->
+      $.ajax "logout",
+        complete: ->
+          require("app").logout()
 
   IndexRouter

@@ -1,19 +1,19 @@
 define [
-  "views/base-view"
-  "handlebars.runtime"
+  "backbone"
+  "handlebars"
   "holder"
-  "views/main/side-nav-view"
+  "views/side-nav-view"
   "bootstrap"
   "templates"
-], (BaseView, Handlebars, Holder, SideNavView) ->
+], (Backbone, Handlebars, Holder, SideNavView) ->
 
-  class BookView extends BaseView
+  class BookView extends Backbone.View
 
+    className: "container"
     template: Handlebars.templates["book"]
 
     initialize: ->
-      super
-      @_navItems = [
+      @navItems = [
         {
           text: "基本信息"
           url: "#books/#{@model.id}"
@@ -28,16 +28,19 @@ define [
           url: "#books/#{@model.id}/review"
         }
       ]
-      @_leftSideView = new SideNavView
-        items: @_navItems
+      @leftSideView = new SideNavView
+        items: @navItems
       @listenTo @model, "change", @render
 
     render: ->
-
       @$el.html @template @model.toJSON()
       Holder.run()
+      @$("#left-side-bar").html @leftSideView.$el
+      @leftSideView.render()
 
-      @$("#left-side-bar").html @_leftSideView.$el
-      @_leftSideView.render()
+    remove: ->
+      @leftSideView.remove()
+      super
+
 
   BookView

@@ -34,7 +34,8 @@ define [
                   res.send 500, '服务器错误。'
                   return
                 res.cookie 'liren_user', user._id.toHexString()
-                res.send 200
+                delete user.password
+                res.send 200, user
 
   {
     route: route

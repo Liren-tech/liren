@@ -16,14 +16,13 @@ define [
     app.use express.static './lib/common'
     app.use express.cookieParser()
 
-    requirejs('server/routers/base-router').route app
+    requirejs('server/routers/index-router').route app
     requirejs('server/routers/signup-router').route app
     requirejs('server/routers/login-router').route app
     requirejs('server/routers/logout-router').route app
-    requirejs('server/routers/main-router').route app
     requirejs('server/routers/user-router').route app
     requirejs('server/routers/book-router').route app
-    requirejs('server/routers/help-router').route app
+    requirejs('server/routers/action-router').route app
 	
     app.listen 10080
 

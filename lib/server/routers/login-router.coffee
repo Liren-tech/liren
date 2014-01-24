@@ -20,7 +20,8 @@ define [
             res.send 401, '邮箱或密码错误'
             return
           res.cookie 'liren_user', doc._id.toHexString()
-          res.send 200
+          delete doc.password
+          res.send 200, doc
 
   {
     route: route
