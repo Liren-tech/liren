@@ -10,7 +10,10 @@ define [
     template: Handlebars.templates["action-thumbnail"]
 
     render: ->
-      context = @model.toJSON()
+      if @model is typeof Backbone.Model
+        context = @model.toJSON()
+      else
+        context = @model
       context.img =
         height: 180
       @$el.html @template context

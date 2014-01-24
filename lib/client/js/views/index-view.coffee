@@ -38,6 +38,7 @@ define [
 
     remove: ->
       @_removeBookList()
+      @_removeActionList()
       super
 
     _renderBookList: ->

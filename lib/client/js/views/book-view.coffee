@@ -2,12 +2,13 @@ define [
   "backbone"
   "handlebars"
   "views/side-nav-view"
+  "views/book-side-view"
   "views/book-info-view"
   "views/book-guide-view"
   "views/book-reviews-view"
   "bootstrap"
   "templates"
-], (Backbone, Handlebars, SideNavView, BookInfoView, BookGuideView, BookReviewsView) ->
+], (Backbone, Handlebars, SideNavView, BookSideView, BookInfoView, BookGuideView, BookReviewsView) ->
 
   class BookView extends Backbone.View
 
@@ -35,9 +36,14 @@ define [
       @leftSideView = new SideNavView
         items: @navItems
 
+      @rightSideView = new BookSideView
+        model: @model
+
     render: ->
       @$el.html @template()
       @$("#left-side-bar").html @leftSideView.$el
+      @$("#right-side-bar").html @rightSideView.$el
+      @rightSideView.render()
 
     route: (router) ->
 
