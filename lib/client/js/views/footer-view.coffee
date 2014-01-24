@@ -6,6 +6,8 @@ define [
 
   class FooterView extends Backbone.View
 
+    className: "container"
+
     template: Handlebars.templates["footer"]
 
     render: ->

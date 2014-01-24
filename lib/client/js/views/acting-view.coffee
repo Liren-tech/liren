@@ -10,6 +10,8 @@ define [
 
   class ReadingView extends Backbone.View
 
+    className: "container"
+
     template: Handlebars.templates["acting"]
 
     initialize: ->
