@@ -97,5 +97,3 @@ define [
         $inputRepeatPassword.parent().removeClass "has-error"
         $inputRepeatPassword.siblings(".help-block").addClass "hidden"
         if callback and "function" is typeof callback then callback null, true
-
-  SignupView

@@ -19,5 +19,3 @@ define [
       user = require("app").user
       @$el.html @template
         user: if user.id then user.toJSON()
-
-  HeaderView

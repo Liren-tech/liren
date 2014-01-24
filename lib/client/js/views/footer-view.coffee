@@ -12,5 +12,3 @@ define [
 
     render: ->
       @$el.html @template()
-
-  FooterView

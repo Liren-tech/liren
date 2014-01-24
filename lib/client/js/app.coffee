@@ -3,8 +3,9 @@ define [
   "models/user"
   "routers/index-router"
   "routers/book-router"
+  "routers/action-router"
   "views/layout-view"
-], (Backbone, User, IndexRouter, BookRouter, LayoutView) ->
+], (Backbone, User, IndexRouter, BookRouter, ActionRouter, LayoutView) ->
 
   App =
 
@@ -20,6 +21,8 @@ define [
         layout: @layout
       new BookRouter
         layout: @layout
+      new ActionRouter
+        layout: @layout
 
       Backbone.history.start()
 
@@ -30,5 +33,8 @@ define [
     logout: ->
       @user.reset()
       window.location = "#"
+
+    defaults:
+      portraitUrl: "images/default-portrait.jpg"
 
   App

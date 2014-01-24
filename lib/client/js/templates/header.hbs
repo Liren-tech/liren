@@ -13,7 +13,7 @@
         <ul class="nav navbar-nav navbar-right">
             {{#if user}}
                 <li><a href="#"><img src="{{user.portraitUrl}}" height="20" width="20"></a></li>
-                <li><a href="#">{{user.email}}</a></li>
+                <li><a href="#">{{#if user.name}}{{user.name}}{{else}}{{user.email}}{{/if}}</a></li>
                 <li><a href="#logout">退出</a></li>
             {{else}}
                 <li><a href="#signup">注册</a></li>

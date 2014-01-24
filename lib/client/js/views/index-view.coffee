@@ -32,21 +32,22 @@ define [
 
     render: ->
       @$el.html @template()
+      Holder.run()
       @_renderBookList()
       @_renderActionList()
-      Holder.run()
 
     remove: ->
       @_removeBookList()
+      @_removeActionList()
       super
 
     _renderBookList: ->
       @_removeBookList()
-      $bookList = @$("#book-list")
+      $bookList = @$ "#book-list"
       @books.each (book) ->
         bookThumbnailView = new BookThumbnailView
           model: book
-          className: "col-xs-4"
+          className: "col-xs-4 margin-bottom-20"
         $bookList.append bookThumbnailView.$el
         bookThumbnailView.render()
         @bookThumbnailViews.push bookThumbnailView
@@ -54,11 +55,11 @@ define [
 
     _renderActionList: ->
       @_removeActionList()
-      $actionList = @$("#action-list")
+      $actionList = @$ "#action-list"
       @actions.each (action) ->
         actionThumbnailView = new ActionThumbnailView
           model: action
-          className: "col-xs-12"
+          className: "col-xs-12 margin-bottom-20"
         $actionList.append actionThumbnailView.$el
         actionThumbnailView.render()
         @actionThumbnailViews.push actionThumbnailView
@@ -73,5 +74,3 @@ define [
       while view = @actionThumbnailViews.shift()
         view.remove()
       @$("#action-list").empty()
-
-  IndexView

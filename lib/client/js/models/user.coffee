@@ -7,7 +7,7 @@ define [
     idAttribute: "_id"
 
     defaults: ->
-      portraitUrl: "images/default-portrait.jpg"
+      portraitUrl: require("app").defaults.portraitUrl
 
     url: ->
       "/user"
@@ -16,5 +16,3 @@ define [
       @clear
         silent: true
       @set @defaults()
-
-  User

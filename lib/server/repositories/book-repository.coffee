@@ -31,5 +31,3 @@ define [
           cursor.toArray (error, books) ->
             db.close()
             if callback and 'function' is typeof callback then callback error, books
-
-  BookRepository

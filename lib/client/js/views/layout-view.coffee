@@ -40,5 +40,3 @@ define [
       if @content
         @content.remove()
       super
-
-  LayoutView

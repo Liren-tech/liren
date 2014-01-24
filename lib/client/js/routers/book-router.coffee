@@ -11,12 +11,28 @@ define [
 
     routes:
       "books/:id": "info"
+      "books/:id/guide": "guide"
+      "books/:id/reviews": "reviews"
 
     info: (id) ->
-      @book = new Book
-        _id: id
-      @book.fetch()
-      @layout.renderContent new BookView
-        model: @book
+      @_initView id
+      @layout.renderContent @view
+      @view.route "info"
 
-  BookRouter
+    guide: (id) ->
+      @_initView id
+      @layout.renderContent @view
+      @view.route "guide"
+
+    reviews: (id) ->
+      @_initView id
+      @layout.renderContent @view
+      @view.route "reviews"
+
+    _initView: (id) ->
+      if !@view or id isnt @book.id
+        @book = new Book
+          _id: id
+        @book.fetch()
+        @view = new BookView
+          model: @book

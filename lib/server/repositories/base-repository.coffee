@@ -62,5 +62,3 @@ define [
         , doc, {w: 1}, (error) ->
           db.close()
           if callback and 'function' is typeof callback then callback error
-
-  BaseRepository

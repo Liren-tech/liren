@@ -9,5 +9,3 @@ define [
 
     url: ->
       "actions"
-
-  Actions
