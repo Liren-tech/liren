@@ -9,3 +9,7 @@ body {
 .affix {
     width: 255px;
 }
+
+.margin-bottom-20 {
+    margin-bottom: 20px;
+}

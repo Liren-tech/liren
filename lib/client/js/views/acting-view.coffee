@@ -38,7 +38,7 @@ define [
       @actions.each (action) ->
         actionThumbnailView = new ActionThumbnailView
           model: action
-          className: "col-xs-6"
+          className: "col-xs-6 margin-bottom-20"
         $actionList.append actionThumbnailView.$el
         actionThumbnailView.render()
         @actionThumbnailViews.push actionThumbnailView

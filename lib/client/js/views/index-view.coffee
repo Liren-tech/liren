@@ -46,7 +46,7 @@ define [
       @books.each (book) ->
         bookThumbnailView = new BookThumbnailView
           model: book
-          className: "col-xs-4"
+          className: "col-xs-4 margin-bottom-20"
         $bookList.append bookThumbnailView.$el
         bookThumbnailView.render()
         @bookThumbnailViews.push bookThumbnailView
@@ -58,7 +58,7 @@ define [
       @actions.each (action) ->
         actionThumbnailView = new ActionThumbnailView
           model: action
-          className: "col-xs-12"
+          className: "col-xs-12 margin-bottom-20"
         $actionList.append actionThumbnailView.$el
         actionThumbnailView.render()
         @actionThumbnailViews.push actionThumbnailView
