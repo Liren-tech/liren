@@ -1,0 +1,16 @@
+body, h1, h2, h3, h4, h5, h6 {
+    font-family: "微软雅黑","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+body {
+    padding-top: 70px;
+}
+
+footer {
+    border-top: solid 1px #e5e5e5;
+    color: #777777;
+    margin-top: 20px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    text-align: center;
+}
